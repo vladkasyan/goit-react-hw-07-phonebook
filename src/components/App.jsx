@@ -1,26 +1,48 @@
 import React from 'react';
 
 import { Body, Placeholder } from './App.module';
-
+import toast from 'react-hot-toast';
 import { PhoneBook } from './phoneBook/phoneBook';
 import { Contacts } from './contacts/contacts';
 import { Filter } from './filter/filter';
-import { useSelector } from 'react-redux';
-import { getContacts } from '../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from '../redux/contacts/operations';
+import Loader from './loader/loader';
+import {
+  selectError,
+  selectContactsItems,
+  selectIsLoading,
+} from '../redux/contacts/selectors';
+import { useEffect } from 'react';
 
 export const App = () => {
   // const savedcontacts = JSON.parse(localStorage.getItem('contacts'));
 
-  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  const contacts = useSelector(selectContactsItems);
 
-  //   console.log('contacts', contacts);
-  // }, [contacts]);
+  const isLoading = useSelector(selectIsLoading);
+
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error === 'ERR_BAD_REQUEST') {
+      toast.error('There are some problems! Try again later.');
+      return;
+    }
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   return (
     <Body>
+      {isLoading && <Loader />}
       <PhoneBook />
 
       {!!contacts.length ? (

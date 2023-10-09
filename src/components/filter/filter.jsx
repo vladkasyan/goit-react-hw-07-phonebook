@@ -1,13 +1,14 @@
 import React from 'react';
 import { Label, Input, Box, Title } from './filter.module';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter } from '../../redux/selectors';
+import { getFilter } from '../../redux/selectors';
 import { setFilter } from '../../redux/filtersSlice';
+import { selectContactsItems } from '../../redux/contacts/selectors';
 
 export const Filter = () => {
   const filters = useSelector(getFilter);
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContactsItems);
 
   const dispatch = useDispatch();
 
