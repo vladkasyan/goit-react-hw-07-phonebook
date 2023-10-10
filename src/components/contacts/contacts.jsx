@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Listitem, Listbutton } from './contacts.module';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from '../../redux/filter/selectors';
-import { deleteContact } from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/contacts/operations';
 import { selectContactsItems } from '../../redux/contacts/selectors';
 
 export const Contacts = () => {

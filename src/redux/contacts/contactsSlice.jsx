@@ -69,5 +69,4 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-export const { addContact, deleteContact } = contactsSlice.actions;
 export const ContactReducer = contactsSlice.reducer;

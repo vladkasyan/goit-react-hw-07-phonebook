@@ -1,6 +1,6 @@
 import { LineWave } from 'react-loader-spinner';
 
-import { StyledLoader } from './Loader.styled';
+import { StyledLoader } from './loader.module';
 
 const Loader = () => {
   return (
