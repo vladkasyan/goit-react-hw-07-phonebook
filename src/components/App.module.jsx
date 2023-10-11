@@ -22,7 +22,7 @@ export const Body = styled.div`
   }
   padding-top: 20px;
   height: 100%;
-  padding-bottom: 309px;
+  padding-bottom: 355px;
 `;
 
 export const Placeholder = styled.div`

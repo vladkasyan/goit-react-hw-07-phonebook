@@ -6,7 +6,7 @@ import { PhoneBook } from './phoneBook/phoneBook';
 import { Contacts } from './contacts/contacts';
 import { Filter } from './filter/filter';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from '../redux/contacts/operations';
+import { getContacts } from '../redux/contacts/operations';
 import Loader from './loader/loader';
 import {
   selectError,
@@ -27,7 +27,7 @@ export const App = () => {
   const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(getContacts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const App = () => {
       ) : (
         <Placeholder>Your phonebook is empty. Add first contact!</Placeholder>
       )}
-      {!!contacts.length && <Contacts />}
+      {isLoading || (!!contacts.length && <Contacts />)}
     </Body>
   );
 };

@@ -5,7 +5,7 @@ import { Forms, Label, Button, Input, Title } from './phoneBook.module';
 import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import { selectContactsItems } from '../../redux/contacts/selectors';
-import { saveContact } from '../../redux/contacts/operations';
+import { addContact } from '../../redux/contacts/operations';
 
 // import * as yup from 'yup';
 
@@ -35,23 +35,32 @@ export const PhoneBook = () => {
     position: 'top-right',
   };
 
-  const submitForm = data => {
+  const checkDublicate = name => {
     if (
       contacts.find(
-        contact => contact.name.toLowerCase() === data.name.toLowerCase()
+        contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      toast.error(`${data.name} is already in contacts`, toastOptions);
+      toast.error(`${name} is already in contacts`, toastOptions);
 
-      return;
+      return true;
     }
+  };
 
-    dispatch(saveContact(data));
+  const submitForm = event => {
+    event.preventDefault();
+    const { name, number } = event.target.elements;
 
-    toast.success(
-      `${data.name.value} has succesfully added to your phonebook`,
-      toastOptions
+    if (checkDublicate(name.value)) return;
+
+    dispatch(addContact({ name: name.value, number: number.value })).then(
+      toast.success(
+        `${name.value} has succesfully added to your phonebook`,
+        toastOptions
+      )
     );
+
+    event.target.reset();
   };
 
   const nameId = nanoid();
