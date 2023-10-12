@@ -16,8 +16,6 @@ import {
 import { useEffect } from 'react';
 
 export const App = () => {
-  // const savedcontacts = JSON.parse(localStorage.getItem('contacts'));
-
   const dispatch = useDispatch();
 
   const contacts = useSelector(selectContactsItems);
